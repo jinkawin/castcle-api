@@ -20,19 +20,21 @@
  * Thailand 10160, or visit www.castcle.com if you need additional information
  * or have any questions.
  */
+import { Model } from 'mongoose';
+import { Injectable } from '@nestjs/common';
+import { HashtagDocument } from '../schemas/hashtag.schema';
+import { InjectModel } from '@nestjs/mongoose';
 
-import { Module } from '@nestjs/common';
+@Injectable()
+export class HashtagService {
+  constructor(
+    @InjectModel('Hashtag')
+    private _hashtagModel: Model<HashtagDocument>
+  ) {}
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-
-import { HealthyController } from './controllers/healthy/healthy.controller';
-import { HashtagController } from './controllers/hashtags/hashtags.controller';
-import { DatabaseModule } from '@castcle-api/database';
-
-@Module({
-  imports: [DatabaseModule],
-  controllers: [AppController, HealthyController, HashtagController],
-  providers: [AppService]
-})
-export class AppModule {}
+  /**
+   *
+   * @returns {HashtagDocument}
+   */
+  getAll = () => this._hashtagModel.find().exec();
+}

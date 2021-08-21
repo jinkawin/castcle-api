@@ -20,19 +20,32 @@
  * Thailand 10160, or visit www.castcle.com if you need additional information
  * or have any questions.
  */
+import { ApiProperty } from '@nestjs/swagger';
 
-import { Module } from '@nestjs/common';
+export class HashtagPayloadDto {
+  @ApiProperty()
+  id: string;
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+  @ApiProperty()
+  slug: string;
 
-import { HealthyController } from './controllers/healthy/healthy.controller';
-import { HashtagController } from './controllers/hashtags/hashtags.controller';
-import { DatabaseModule } from '@castcle-api/database';
+  @ApiProperty()
+  name: string;
 
-@Module({
-  imports: [DatabaseModule],
-  controllers: [AppController, HealthyController, HashtagController],
-  providers: [AppService]
-})
-export class AppModule {}
+  @ApiProperty()
+  key: string;
+
+  @ApiProperty()
+  created: string;
+
+  @ApiProperty()
+  updated: string;
+}
+
+export class HashtagsResponse {
+  @ApiProperty()
+  message: string;
+
+  @ApiProperty()
+  payload: HashtagPayloadDto[];
+}
